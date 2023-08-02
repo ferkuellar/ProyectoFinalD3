@@ -1,34 +1,31 @@
-
-
 // CHART START
 // 1. aquí hay que poner el código que genera la gráfica
 
-let years;
-let winners;
-let originalData;
+// Declaración de variables
+let years; // Array para almacenar los años
+let winners; // Array para almacenar los países ganadores
+let originalData; // Variable para almacenar los datos originales
 
-// data:
+// Carga de datos desde un archivo CSV
 d3.csv("WorldCup.csv")
     .then(data => {
         originalData = data;
-        // Prepare the data for the chart
-        // data = data.filter(d => d.Year < 1955)
+        // Preparar los datos para el gráfico
+        // data = data.filter(d => d.Year < 1955) // Filtrar datos si es necesario
         years = data.map(d => +d.Year);
         winners = data.map(d => d.Winner);
-        // update:
+        // Actualizar el gráfico inicial
         update(winners);
-        slider();
+        slider(); // Inicializar el control deslizante
 });
 
-// update:
+// Función para actualizar el gráfico de barras
 function update(data) {
     // 3. función que actualiza el gráfico
-    const chartDiv = d3
-        .select("#chart");
-    chartDiv
-        .selectAll("*")
-        .remove(); // Clear previous chart
+    const chartDiv = d3.select("#chart");
+    chartDiv.selectAll("*").remove(); // Eliminar el gráfico anterior
 
+    // Definir dimensiones y márgenes del gráfico
     const margin = { 
         top: 30, 
         right: 30, 
@@ -38,6 +35,7 @@ function update(data) {
     const width = 800 - margin.left - margin.right;
     const height = 600 - margin.top - margin.bottom;
 
+    // Crear el lienzo SVG
     const svg = chartDiv
         .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -45,6 +43,7 @@ function update(data) {
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    // Escalas para los ejes x e y
     const x = d3
         .scaleBand()
         .domain(winners)
@@ -53,19 +52,15 @@ function update(data) {
 
     const y = d3
         .scaleLinear()
-        .domain([0, d3
-            .max(data, d => data
-            .filter(val => val === d).length
-            )])
+        .domain([0, d3.max(data, d => data.filter(val => val === d).length)])
         .range([height, 0]);
 
-    const xAxis = d3
-        .axisBottom(x);
-    const yAxis = d3
-        .axisLeft(y);
+    // Crear ejes x e y
+    const xAxis = d3.axisBottom(x);
+    const yAxis = d3.axisLeft(y);
 
-    svg
-        .append("g")
+    // Agregar ejes al lienzo SVG
+    svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", `translate(0,${height})`)
         .call(xAxis)
@@ -73,77 +68,64 @@ function update(data) {
         .attr("transform", "rotate(-45)")
         .style("text-anchor", "end");
 
-    svg
-        .append("g")
+    svg.append("g")
         .attr("class", "y-axis")
         .call(yAxis);
 
-    const bars = svg
-        .selectAll(".bar")
+    // Crear las barras del gráfico
+    const bars = svg.selectAll(".bar")
         .data(data)
         .enter()
         .append("rect")
         .attr("class", "bar")
         .attr("x", d => x(d))
-        .attr("y", d => y(data
-            .filter(val => val === d).length))
-        .attr("width", x
-            .bandwidth())
-        .attr("height", d => height - y(data
-            .filter(val => val === d).length));
-
+        .attr("y", d => y(data.filter(val => val === d).length))
+        .attr("width", x.bandwidth())
+        .attr("height", d => height - y(data.filter(val => val === d).length));
 }
 
-
-// treat data:
+// Función para filtrar datos por año
 function filterDataByYear(year) {
     // 4. función que filtra los datos dependiendo del año que le pasemos (year)
     return originalData
         .filter((d) => d.Year <= String(year))
         .map((d) => d.Winner);
 }
-
 // CHART END
 
-// slider:
+// Función para crear el control deslizante
 function slider() {
-    // esta función genera un slider:
-    var sliderTime = d3
-        .sliderHorizontal()
-        .min(d3.min(years)) // rango años
-        .max(d3.max(years))
-        .step(4) // cada cuánto aumenta el slider (4 años) cada mundial
-        .width(580) // ancho de nuestro slider en px
+    // Esta función genera un control deslizante
+    var sliderTime = d3.sliderHorizontal()
+        .min(d3.min(years)) // Rango mínimo de años
+        .max(d3.max(years)) // Rango máximo de años
+        .step(4) // Incremento del control (4 años por cada cambio)
+        .width(580) // Ancho del control en píxeles
         .ticks(years.length)
-        .default(years[years.length - 1]) // punto inicio del marcador
+        .default(years[years.length - 1]) // Valor inicial del marcador
         .on('onchange', val => {
-            // 5. AQUÍ SÓLO HAY QUE CAMBIAR ESTO:
-
+            // Acción a realizar al cambiar el valor del control
 
             console.log(val);
 
-            // TODO repintar el gráfico con los datos filtrados en cada onchange TODO
-
-        const filteredData = filterDataByYear(val);
-            update(filteredData);
+            // Filtrar los datos por el año seleccionado
+            const filteredData = filterDataByYear(val);
+            update(filteredData); // Actualizar el gráfico con los datos filtrados
             
-            d3
-                .select('p#value-time')
-                .text(val); // actualiza el año que se representa
+            d3.select('p#value-time')
+                .text(val); // Actualizar el año que se muestra
         });
 
-    // contenedor del slider
-    var gTime = d3
-        .select('div#slider-time') // div donde lo insertamos
+    // Contenedor del control deslizante
+    var gTime = d3.select('div#slider-time') // Div donde se inserta
         .append('svg')
         .attr('width', 800)
         .attr('height', 200)
         .append('g')
         .attr('transform', 'translate(30,30)');
 
-    gTime.call(sliderTime); // invocamos el slider en el contenedor
+    gTime.call(sliderTime); // Inicializar el control deslizante en el contenedor
 
-    d3
-        .select('p#value-time')
-        .text(sliderTime.value()); // actualiza el año que se representa
+    d3.select('p#value-time')
+        .text(sliderTime.value()); // Mostrar el año inicial
 }

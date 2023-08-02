@@ -1,6 +1,13 @@
 /* style.css */
 
 /* Estilo para la línea de la gráfica */
+
+.bar:hover {
+    stroke: black;
+    stroke-width: 1px;
+
+}
+
 .line {
     fill: none;
     stroke: steelblue;

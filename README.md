@@ -87,8 +87,6 @@ La aplicación cargará el gráfico de barras inicialmente mostrando los equipos
 - El gráfico de barras se actualizará automáticamente para mostrar los equipos ganadores en el año seleccionado.
 - La etiqueta debajo del slider mostrará el año seleccionado actualmente.
 
-## Agradecimientos
-
 Este ejercicio utiliza las siguientes librerías:
 
 - [D3.js](https://d3js.org/): Biblioteca de JavaScript para manipular documentos basados en datos.
@@ -97,7 +95,9 @@ Este ejercicio utiliza las siguientes librerías:
 ## Notas
 
 Este ejercicio es solo una demostración y puede mejorarse y adaptarse para su uso en proyectos más complejos. Para obtener más información sobre las funcionalidades de D3.js y la manipulación de datos en gráficos, consulta la documentación oficial y otros recursos disponibles en línea.
+
 --------
+
 # Ejercicio 02: 
 ## Gráficas de Edades: Leonardo DiCaprio y sus Ex Parejas
 
@@ -115,11 +115,6 @@ Este es un ejercicio que muestra las edades de Leonardo DiCaprio en una gráfica
 3. Copia y pega el código del archivo "main_2.js" en tu archivo JavaScript.
 4. Asegúrate de que el archivo "style.css" tenga los estilos necesarios para mostrar correctamente las gráficas.
 5. Abre el archivo "index.html" en tu navegador web.
-
-## Estructura del Archivo CSV (data(2).csv)
-
-El archivo CSV debe tener la siguiente estructura:
-
 
 --------
 # Ejercicio 3

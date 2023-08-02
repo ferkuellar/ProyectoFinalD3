@@ -83,12 +83,22 @@ const drawBarGraph = (data) => {
 
   // agrega ejes
 const addAxes = () => {
-    const xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
-    const yAxis = d3.axisLeft(yScale);
+    const xAxis = d3
+        .axisBottom(xScale)
+        .tickFormat(d3.format("d"));
+    const yAxis = d3
+        .axisLeft(yScale);
 
-    svg.append("g").attr("class", "x-axis").attr("transform", `translate(0,${height})`).call(xAxis);
+    svg
+        .append("g")
+        .attr("class", "x-axis")
+        .attr("transform", `translate(0,${height})`)
+        .call(xAxis);
 
-    svg.append("g").attr("class", "y-axis").call(yAxis);
+    svg
+        .append("g")
+        .attr("class", "y-axis")
+        .call(yAxis);
 };
 
   // agrega etiquetas
@@ -97,7 +107,7 @@ const addLabels = () => {
         .append("text")
         .attr("transform", `translate(${width / 2},${height + margin.bottom})`)
         .style("text-anchor", "middle")
-        .text("Year");
+        .text("Año");
 
     svg
         .append("text")
@@ -106,7 +116,7 @@ const addLabels = () => {
         .attr("x", 0 - height / 2)
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Age");
+        .text("Edad");
 };
 
   // Llama a las funciones para dibujar el grafico

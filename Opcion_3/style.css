@@ -1,0 +1,22 @@
+/* style.css */
+
+/* Estilo para la línea de la gráfica */
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2;
+}
+
+/* Estilo para los ejes */
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #ccc;
+    shape-rendering: crispEdges;
+}
+
+/* Estilo para las etiquetas de los ejes */
+.axis text {
+    font-family: sans-serif;
+    font-size: 12px;
+}

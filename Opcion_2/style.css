@@ -1,0 +1,30 @@
+/* Estilo para el área de visualización */
+#chart {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+}
+
+/* Estilo para los rectángulos de las ex parejas */
+.rect-bar {
+    fill: #66c2a5;
+    transition: fill 0.3s ease;
+}
+
+.rect-bar:hover {
+    fill: #1f78b4;
+}
+
+/* Estilo para la línea de la edad umbral */
+#linea-umbral {
+    fill: none;
+    stroke: red;
+    stroke-width: 2;
+}
+
+/* Estilo para el texto de información */
+#info {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
